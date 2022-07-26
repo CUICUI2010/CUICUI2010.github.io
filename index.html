@@ -155,6 +155,78 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/26/%E9%80%89%E6%8B%A9%E5%AE%A2%E6%A0%88%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cui2010">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cui2010 的小窝">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/26/%E9%80%89%E6%8B%A9%E5%AE%A2%E6%A0%88%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">选择客栈题解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-26 16:30:14 / Modified: 16:59:54" itemprop="dateCreated datePublished" datetime="2022-07-26T16:30:14+08:00">2022-07-26</time>
+            </span>
+|
+<span title="post.wordcount">
+    608 words
+</span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="P1311-选择客栈题解"><a href="#P1311-选择客栈题解" class="headerlink" title="P1311 选择客栈题解"></a>P1311 选择客栈题解</h1><blockquote>
+<p>觉得题目太水了的可以去看看 P6032，<del>开 O2 就能过</del>！</p>
+</blockquote>
+<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>给你 $2n$ 个数 $a_1, a_2, \dots, a_n$ 和 $b_1, b_2, b_3, \dots, b_n$。</p>
+<p>求满足 $i \leq j,a_i=a_j$ 且 $\displaystyle{\min_{1\leq k\leq j}b_k} \leq$ 给定数 $p$ 的 $i,j$ 的总数</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>考虑单调性。</p>
+<p>对于每个 $i$，当 $i$ 对答案的贡献非 $0$ 时，都<strong>有且仅有</strong>一个 $j$，使得从 $i$ 开始，它前面的数都 $&gt;p$，而 $a_j \leq p$。</p>
+<p>如果用 $O(n\log n)$ 来做，需要预处理所有的区间最小值。</p>
+<p>ST 表。</p>
+<p>可以将长度为 $2^x$ 的区间预处理出来，用倍增拼即可。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="comment">// FOR templates.</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rep(i, s, n, k) for(int i = s;i &lt;= n;i += k)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> repn(i, s, n, k) for(int i = s;i &lt; n;i += k)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pre(i, s, n, k) for(int i = s;i &gt;= n;i -= k)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pren(i, s, n, k) for(int i = s;i &gt; n;i -= k)</span></span><br><span class="line"><span class="comment">// Abbr for STL.</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pii pair<span class="string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pdd pair<span class="string">&lt;double, double&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mpi map<span class="string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pii pair<span class="string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pdd pair<span class="string">&lt;double, double&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> vc vector<span class="string">&lt;int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mpp map<span class="string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> arr(k, n) int k[n]</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> all(v) v.begin(), v.end()</span></span><br><span class="line"><span class="comment">// CIN templates, proven very useful.</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cn(n) int n;cin &gt;&gt; n</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> cm(n) cin &gt;&gt; n</span></span><br><span class="line"><span class="comment">// Abbr for funcs.</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mset memset</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> sshort char</span></span><br><span class="line"><span class="comment">// #define files</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">0x3f3f3f3f3f3f3f3f</span>LL;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MOD1 = <span class="number">1000000007LL</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MOD2 = <span class="number">998244353LL</span>;</span><br><span class="line"><span class="type">int</span> d[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">gcd</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;<span class="keyword">return</span> <span class="built_in">gcd</span>(b, a % b);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;<span class="keyword">return</span> x &amp; (-x);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">lcm</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;<span class="keyword">return</span> a * b / <span class="built_in">gcd</span>(a, b);&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> mn[<span class="number">2000001</span>][<span class="number">25</span>];</span><br><span class="line">vc vec[<span class="number">10001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cn</span>(n); <span class="built_in">cn</span>(k); <span class="built_in">cn</span>(p);</span><br><span class="line">	pii a[n]; <span class="built_in">repn</span>(i, <span class="number">0</span>, n, <span class="number">1</span>) <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld&quot;</span>, &amp;a[i].first, &amp;a[i].second);</span><br><span class="line">	<span class="built_in">repn</span>(i, <span class="number">0</span>, n, <span class="number">1</span>)&#123;</span><br><span class="line">		vec[a[i].first].<span class="built_in">pb</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">repn</span>(i, <span class="number">0</span>, n, <span class="number">1</span>) mn[i][<span class="number">0</span>] = a[i].second;</span><br><span class="line">	<span class="built_in">repn</span>(j, <span class="number">1</span>, <span class="number">25</span>, <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">repn</span>(i, <span class="number">0</span>, n, <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(i + (<span class="number">1LL</span> &lt;&lt; j) &gt; n) <span class="keyword">break</span>;</span><br><span class="line">			mn[i][j] = <span class="built_in">min</span>(mn[i][j - <span class="number">1</span>], mn[i + (<span class="number">1</span> &lt;&lt; (j - <span class="number">1</span>))][j - <span class="number">1</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">repn</span>(i, <span class="number">0</span>, k, <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">repn</span>(j, <span class="number">0</span>, vec[i].<span class="built_in">size</span>(), <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="type">int</span> x, pos = vec[i][j];</span><br><span class="line">			<span class="keyword">for</span>(x = <span class="number">24</span>;x &gt;= <span class="number">0</span>;x--)&#123;</span><br><span class="line">				<span class="keyword">if</span>(x + (<span class="number">1LL</span> &lt;&lt; x) &lt;= n &amp;&amp; mn[pos][x] &gt; p)&#123;</span><br><span class="line">					pos += (<span class="number">1</span> &lt;&lt; x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(mn[pos][<span class="number">0</span>] &gt; p) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="type">int</span> ps = (<span class="type">int</span>)(<span class="built_in">lower_bound</span>(vec[i].<span class="built_in">begin</span>(), vec[i].<span class="built_in">end</span>(), pos) - vec[i].<span class="built_in">begin</span>());</span><br><span class="line">			<span class="keyword">if</span>(ps &lt;= j) ps = j + <span class="number">1</span>;</span><br><span class="line">			ans += vec[i].<span class="built_in">size</span>() - ps;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/05/CF-Round-804-1699-%E9%A2%98%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -972,7 +1044,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -985,7 +1057,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
